@@ -2,7 +2,6 @@
 // Compile: javac StringUtils.java
 // Run: java StringUtils "racecar"
 
-
 import java.util.*;
 
 public class StringUtils {
