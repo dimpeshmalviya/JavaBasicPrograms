@@ -3,9 +3,8 @@ import java.util.*;
 public class ValidAnagrams {
     public static boolean isAnagram(String s, String t){
 
-        if(s.length() != t.length()){
-            return false;
-        }
+        if(s.length() != t.length()) return false;
+    
         HashMap<Character, Integer> map = new HashMap<>();
 
         for(int i=0;i<s.length();i++){
@@ -14,26 +13,20 @@ public class ValidAnagrams {
         }
 
         for(int i=0;i<t.length();i++){
-            char ch = t.charAt(i); 
-
-            if(map.get(ch) != null){
-                if(map.get(ch) == 1){
-                    map.remove(ch);
-                }else{
-                    map.put(ch, map.get(ch) -1);
-                }
-            }else{
-                return false;
-            }
+            char ch = t.charAt(i);
+            if (!map.containsKey(ch)) return false;
+            map.put(ch, map.get(ch) - 1);
+            if (map.get(ch) == 0)
+                map.remove(ch);
         }
         return true;
     }
     public static void main(String[] args) {
+        
         String s = "knee";
         String t = "keen";
         
-        System.out.println(isAnagram(s, t));
-        
+        System.out.println(isAnagram(s, t))
     }
 }
 
