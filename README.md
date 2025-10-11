@@ -129,6 +129,15 @@ You are free to use, modify, and distribute this project with attribution.
 
 ---
 
+## Our Contributors
+<img src="https://contributors-img.web.app/image?repo=dimpeshmalviya/JavaBasicPrograms"/>
+
+## Our Forkers
+<img src="https://reporoster.com/forks/dark/dimpeshmalviya/JavaBasicPrograms"/>
+
+## Our Stargazer
+<img src="https://reporoster.com/stars/dark/dimpeshmalviya/JavaBasicPrograms"/>
+
 <p align="center">
   <b>“The only way to learn a new programming language is by writing programs in it.”</b><br>
   — Dennis Ritchie
