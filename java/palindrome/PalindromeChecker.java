@@ -7,10 +7,13 @@ public class PalindromeChecker {
         String input = sc.nextLine();
         sc.close();
 
-        if (isPalindrome(input)) {
-            System.out.println(input + " is a palindrome!");
+        // Normalize input: lowercase + remove spaces
+        String normalized = input.toLowerCase().replaceAll("\\s+", "");
+
+        if (isPalindrome(normalized)) {
+            System.out.println("\"" + input + "\" is a palindrome! 🚀");
         } else {
-            System.out.println(input + " is NOT a palindrome!");
+            System.out.println("\"" + input + "\" is NOT a palindrome.");
         }
     }
 
@@ -28,4 +31,3 @@ public class PalindromeChecker {
         return true;
     }
 }
-
