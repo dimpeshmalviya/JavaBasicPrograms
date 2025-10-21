@@ -1,0 +1,169 @@
+package p1;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.*;
+public class LoginPage implements ActionListener
+{
+    JFrame f;
+    JLabel un, ps;
+    JTextField uname;
+    JPasswordField p;
+    JButton lg, ext;
+    LoginPage()
+    {
+    	f=new JFrame("Login Page");
+    	f.getContentPane().setBackground(Color.orange);
+    	f.setLayout(null);
+    	f.setSize(700, 500);
+    	
+    	un = new JLabel("Username");
+    	un.setBounds(100, 100, 100, 70);
+    	f.add(un);
+    	
+    	uname=new JTextField();
+    	uname.setBackground(Color.CYAN);
+    	uname.setBounds(250, 100, 100, 60);
+    	f.add(uname);
+    	
+    	ps=new JLabel("Password");
+    	ps.setBounds(100, 250, 100, 70);
+    	f.add(ps);
+    	
+    	p=new JPasswordField();
+    	p.setBackground(Color.GREEN);
+    	p.setBounds(250, 250, 100, 60);
+    	f.add(p);
+    	
+    	lg= new JButton("Login");
+    	lg.setBounds(170, 350, 100, 50);
+    	lg.addActionListener(this);
+    	f.add(lg);
+    	
+    	ext=new JButton("EXIT");
+    	ext.setBounds(320, 350, 100, 50);
+    	ext.addActionListener(this);
+    	f.add(ext);
+    	
+    	f.setVisible(true);
+    }
+	public static void main(String[] args) {
+		new LoginPage();
+
+	}
+	public void actionPerformed(ActionEvent e)
+	{
+		if(e.getSource()==lg)
+		{
+			String name, pass;
+			name=uname.getText();
+			pass=new String(p.getPassword());
+			if(name.equals("klu")==true && pass.equals("123")==true)
+			{
+				JOptionPane.showMessageDialog(f, "Username & password is correct");
+				f.dispose();
+				new Main().initUI();
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(f, "Invalid username & password is ");
+			}
+		}
+		else
+		{
+			f.dispose();
+		}
+	}
+}
+
+
+package p1;
+import java.awt.*;
+import java.io.*;
+import javax.swing.*;
+public class Main {
+  JTextArea textArea, textarea;
+  JButton save, open, delete, add;
+  void initUI() {
+    JFrame frame = new JFrame(Main.class.getSimpleName());
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    textArea = new JTextArea(100, 100);
+    textArea.setBackground(Color.YELLOW);
+    textArea.setForeground(Color.RED);
+    save = new JButton("Save to file");
+    save.addActionListener(e -> saveToFile());
+    open = new JButton("Open from file");
+    open.addActionListener(e -> {
+		try {
+			OpenFromfile();
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+	});
+    delete = new JButton("Delete a file");
+    delete.addActionListener(e -> DeleteAfile());
+    add = new JButton("Add new Data");
+    add.addActionListener(e -> AddNewData());
+    frame.add(new JScrollPane(textArea));
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.add(save);
+    buttonPanel.add(add);
+    buttonPanel.add(open);
+    buttonPanel.add(delete);
+    frame.add(buttonPanel, BorderLayout.BEFORE_FIRST_LINE);
+    frame.setSize(500, 400);
+    
+    frame.setVisible(true);
+  }
+
+    protected void OpenFromfile() throws Exception {
+    	JFileChooser fileChooser = new JFileChooser();
+        int a = fileChooser.showOpenDialog(null);
+
+        if (a == JFileChooser.APPROVE_OPTION) {
+          File fileToOpen = fileChooser.getSelectedFile();
+          Desktop.getDesktop().open(fileToOpen);
+        }
+    }
+    
+    protected void DeleteAfile()
+    {
+    	JFileChooser chooser = new JFileChooser();
+    	chooser.showOpenDialog(null);
+    	File f = chooser.getSelectedFile();
+    	if (f == null) {
+            return;
+          }
+    	else {
+    	    f.delete();
+    	    JOptionPane.showConfirmDialog(chooser,"Are you sure want to delete this file?","Confirm",JOptionPane.YES_NO_OPTION);
+    	    JOptionPane.showMessageDialog(chooser, "File is Successfully Deleted");
+    	}
+    }
+    
+    protected void AddNewData()
+    {
+    	textArea.setText(null);
+    }
+    
+  protected void saveToFile() {
+    JFileChooser fileChooser = new JFileChooser();
+    int retval = fileChooser.showSaveDialog(save);
+    if (retval == JFileChooser.APPROVE_OPTION) {
+      File file = fileChooser.getSelectedFile();
+      if (file == null) {
+        return;
+      }
+      if (!file.getName().toLowerCase().endsWith(".txt")) {
+        file = new File(file.getParentFile(), file.getName() + ".txt");
+      }
+      try {
+        textArea.write(new OutputStreamWriter(new FileOutputStream(file),
+            "utf-8"));
+        Desktop.getDesktop().open(file);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+  }
+}
